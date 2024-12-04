@@ -158,3 +158,24 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
+fetch('https://api.lanyard.rest/v1/users/885448852872790107')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    const avatarId = data.data.discord_user.avatar; // Получаем avatar ID пользователя
+    const avatarUrl = avatarId 
+      ? `hthttps://cdn.discordapp.com/avatars/744263667268321370/769958ae72b36ccdbcc2ef642479bc6e.webp?size=4096` 
+      : 'https://cdn.discordapp.com/avatars/744263667268321370/769958ae72b36ccdbcc2ef642479bc6e.webp?size=4096'; // Если нет аватара, использовать стандартное изображение
+
+    avatarElement.src = avatarUrl; // Обновляем изображение аватара
+
+    const nickname = data.data.discord_user.username; // Получаем имя пользователя
+    nicknameElement.textContent = nickname; // Обновляем ник в HTML
+  })
+  .catch(error => {
+    console.error('Ошибка при получении данных:', error);
+  });
