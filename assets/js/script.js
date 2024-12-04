@@ -158,27 +158,3 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-const avatarElement = document.querySelector('.about-content__body-avatar');
-const nicknameElement = document.querySelector('Mrgallaxy');
-
-fetch('https://api.lanyard.rest/v1/users/885448852872790107')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    const avatarId = data.data.discord_user.avatar; // Получаем avatar ID пользователя
-    const avatarUrl = avatarId 
-      ? `assets/images/mrgalaxxy.png` 
-      : 'assets/images/mrgalaxxy.png'; // Если нет аватара, использовать стандартное изображение
-
-    avatarElement.src = avatarUrl; // Обновляем изображение аватара
-
-    const nickname = data.data.discord_user.username; // Получаем имя пользователя
-    nicknameElement.textContent = nickname; // Обновляем ник в HTML
-  })
-  .catch(error => {
-    console.error('Ошибка при получении данных:', error);
-  });
